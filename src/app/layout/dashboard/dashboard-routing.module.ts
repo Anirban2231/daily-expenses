@@ -17,19 +17,19 @@ const routes: Routes = [
         component: DashboardLayoutComponent
       },
       {
-        path: '/add-income',
+        path: 'add-income',
         component: AddIncomeComponent
       },
       {
-        path: '/add-expenses',
+        path: 'add-expenses',
         component: AddExpensesComponent
       },
       {
-        path: '/report',
+        path: 'report',
         component: ReportComponent
       },
       {
-        path: '/transaction',
+        path: 'transaction',
         component: TransactionComponent
       }
     ] 

@@ -17,9 +17,9 @@ export class DashboardLayoutComponent implements OnInit {
 
     if(url=='addincome'){
 
-      this.router.navigate(['/addincome'])
+      this.router.navigate(['/add-income'])
     }else if(url =='addexpenses'){
-      this.router.navigate(['/addexpenses'])
+      this.router.navigate(['/add-expenses'])
     }else{
       this.router.navigate(['/report'])
     }

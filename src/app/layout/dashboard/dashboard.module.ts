@@ -11,6 +11,8 @@ import { AddExpensesComponent } from 'src/app/pages/add-expenses/add-expenses.co
 import { AddIncomeComponent } from 'src/app/pages/add-income/add-income.component';
 import { ReportComponent } from 'src/app/pages/report/report.component';
 import { TransactionComponent } from 'src/app/pages/transaction/transaction.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { TransactionComponent } from 'src/app/pages/transaction/transaction.comp
     DashboardRoutingModule,
     SharedModule,
     RouterModule,
-    NgChartsModule
+    NgChartsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
 
   ]
 })

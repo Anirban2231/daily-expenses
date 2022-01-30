@@ -1,1 +1,30 @@
-<p>add-income works!</p>
+<section>
+    <div class="contaoiner">
+        <div class="row align-items-center">
+            
+                <div class="col-sm-6 offset-sm-3">
+                    <form [formGroup]="incomeForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Amount</label>
+                      <input type="number" class="form-control" formControlName="amount" id="exampleFormControlInput1" placeholder="price">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Date</label>
+                        <input type="date" class="form-control" formControlName="date" id="exampleFormControlInput1" placeholder="date">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Category select</label>
+                      <select class="form-control" formControlName="category" id="exampleFormControlSelect1">
+                         <ng-container *ngFor="let category of expenseCategory;">
+                            <option value="{{category.id}}">{{category.expenses_cat_name}}</option>
+                         </ng-container> 
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Add Income</button>
+                  </form>
+                </div>
+                
+           
+        </div>
+    </div>
+</section>

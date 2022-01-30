@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [{ path: 'dashboard', loadChildren: () => import('./layout/dashboard/dashboard.module').then(m => m.DashboardModule) }];
+const routes: Routes = [{ path: '', loadChildren: () => import('./layout/dashboard/dashboard.module').then(m => m.DashboardModule) }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

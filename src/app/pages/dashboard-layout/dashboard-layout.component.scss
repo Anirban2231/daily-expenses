@@ -20,4 +20,25 @@ font-weight: 600;
 }
 .meta_chart{
 padding: 12px 12px 10px 10px;
-}   
+}
+.income{
+    background-color: #ffa1b5;
+}
+.expense{
+    background-color: #86c7f3
+}
+.balance{
+    background-color: #ffe29a
+} 
+
+
+.legend { list-style: none; display: inline-block }
+.legend li { float: left; margin-right: 70px; }
+.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 8px; }
+/* your colors */
+.legend .income { background-color: #ffa1b5; }
+.legend .expense { background-color: #86c7f3; }
+.legend .balance { background-color: #ffe29a; }
+.span_head{
+    
+}

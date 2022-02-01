@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -9,8 +10,14 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrls: ['./dashboard-layout.component.scss']
 })
 export class DashboardLayoutComponent implements OnInit {
+  dataPie: any = []
   @ViewChild("income") el?: ElementRef;
   public index: any
+  showChart: boolean = false
+  income: any
+  expense: any
+  balance: any
+  /*********************Line Chart***************************** */
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -76,17 +83,39 @@ export class DashboardLayoutComponent implements OnInit {
     }
   };
   public lineChartType: ChartType = 'line';
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+  @ViewChild(BaseChartDirective) charts?: QueryList<BaseChartDirective>;
   
 
-  
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
+  /******************line chart******************** */
+  /*public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
     console.log(event, active);
-  }
+  }*/
+
+  /***********************************Pie Chart*********************************************/
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+    }
+  };
+  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+    labels: [ 'Income','Expenses','Balance' ],
+    datasets: [ {
+      data: []
+    } ]
+  };
+  public pieChartType: ChartType = 'pie';
+  /**************************************Pie chart*******************************************/
 
   chartDataIncome : any = [16000, 15500, 8000, 9000, 10000, 5500, 4300]
   chartDataExpense: any = [9500, 6300, 6300, 1900, 8600, 2700, 2560]
-  constructor(private router: Router) { }
+  constructor(private router: Router,private service: DashboardService ) { 
+
+     
+   }
 
   ngOnInit(): void {
     for (let j = 0; j < this.chartDataIncome.length; j++) {
@@ -95,7 +124,51 @@ export class DashboardLayoutComponent implements OnInit {
     for (let j = 0; j < this.chartDataExpense.length; j++) {
       this.lineChartData.datasets[1].data[j] = this.chartDataExpense[j]
     }
-    this.chart?.update();
+  
+    this.charts?.forEach((c)=>{
+      c.ngOnChanges({})
+    })
+
+    
+    var date = new Date();
+    var month = date.getMonth();
+    var year = date.getUTCFullYear();
+    
+    this.service.getCurrentmonthAnalysis((month+1),year).subscribe(
+      (data) =>{
+          
+          this.dataPie = data;
+          console.log(this.dataPie)
+
+          this.pieChartData.datasets[0].data[0] = this.dataPie['income']
+          this.pieChartData.datasets[0].data[1] = this.dataPie['expence']
+          this.pieChartData.datasets[0].data[2] = this.dataPie['balance']
+
+          this.showChart= true
+          this.income = this.dataPie['income']
+          this.expense = this.dataPie['expence']
+          this.balance =  this.dataPie['balance']
+
+          /*this.pieChartData.datasets[0].data.push(500)
+          this.pieChartData.datasets[0].data.push(200)
+          this.pieChartData.datasets[0].data.push(300)*/
+    
+          
+
+          
+
+          
+         
+      }
+    )
+    //console.log(this.dataPie)
+    
+    this.charts?.forEach((c)=>{
+      c.ngOnChanges({})
+    })
+      
+
+    
   }
 
   goTopage(url:string){
@@ -112,3 +185,8 @@ export class DashboardLayoutComponent implements OnInit {
   }
 
 }
+
+
+
+
+

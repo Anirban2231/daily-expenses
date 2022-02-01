@@ -36,6 +36,7 @@ export class AddExpensesComponent implements OnInit {
       this.service.addExpense(this.ExpenseForm.value).subscribe(
         (data)=>{
           console.log(data)
+          this.ExpenseForm.reset()
         }
       )
   }

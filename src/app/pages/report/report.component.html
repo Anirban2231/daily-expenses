@@ -1,1 +1,55 @@
-<p>report works!</p>
+<section class="markup-chart">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3>Income,Expense,Balance Of the Current Year</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Filter By Year</label>
+                    <select #yr class="form-control"  (change)="filterByYear($event)">
+                        <option>--select a year---</option>
+                        <ng-container *ngFor="let year of years">
+                            <option value="{{year}}">{{year}}</option>
+                        </ng-container>
+                          
+                    </select>
+                  </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Filter By Month</label>
+                    <select class="form-control" id="exampleFormControlSelect1" (change)="filterByMonth($event,yr.value)">
+                        <option>--select a month---</option>
+                        <ng-container *ngFor="let month of months;index as i">
+                            <option value="{{month}}">{{monthsByName[month-1]}}</option>
+                        </ng-container>
+                    </select>
+                  </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3" *ngIf="showChart">
+                <div class="meta_chart">
+                    <canvas baseChart
+              [data]="pieChartData"
+              [type]="pieChartType"
+              [options]="pieChartOptions">
+      </canvas>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="text-center">
+        <ul class="legend">
+            <li><span class="income"></span> income: {{income}}</li>
+            <li><span class="expense"></span> expenses: {{expense}}</li>
+            <li><span class="balance"></span> balance: {{balance}}</li>
+        </ul>  
+    </div>
+       
+</section>
